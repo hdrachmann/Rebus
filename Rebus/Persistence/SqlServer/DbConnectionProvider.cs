@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET45
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -98,3 +99,4 @@ namespace Rebus.Persistence.SqlServer
         public IsolationLevel IsolationLevel { get; set; }
     }
 }
+#endif

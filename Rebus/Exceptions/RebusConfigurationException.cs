@@ -11,12 +11,12 @@ namespace Rebus.Exceptions
 #if NET45
     [Serializable]
 #endif
-    public class RebusApplicationException : Exception
+    public class RebusConfigurationException : Exception
     {
         /// <summary>
         /// Constructs the exception with the given message
         /// </summary>
-        public RebusApplicationException(string message)
+        public RebusConfigurationException(string message)
             : base(message)
         {
         }
@@ -24,7 +24,7 @@ namespace Rebus.Exceptions
         /// <summary>
         /// Constructs the exception with the given message and inner exception
         /// </summary>
-        public RebusApplicationException(Exception innerException, string message)
+        public RebusConfigurationException(Exception innerException, string message)
             : base(message, innerException)
         {
         }
@@ -33,7 +33,7 @@ namespace Rebus.Exceptions
         /// <summary>
         /// Happy cross-domain serialization!
         /// </summary>
-        public RebusApplicationException(SerializationInfo info, StreamingContext context)
+        public RebusConfigurationException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

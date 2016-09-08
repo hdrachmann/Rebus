@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Rebus.Auditing.Sagas;
 using Rebus.Config;
 using Rebus.Logging;

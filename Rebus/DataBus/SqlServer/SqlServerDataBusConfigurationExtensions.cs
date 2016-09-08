@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET45
+using System;
 using System.Threading.Tasks;
 using Rebus.Config;
 using Rebus.Logging;
@@ -46,3 +47,4 @@ namespace Rebus.DataBus.SqlServer
         }
     }
 }
+#endif

@@ -1,13 +1,17 @@
 ﻿using System;
+#if NET45
 using System.Runtime.Serialization;
+#endif
 
 namespace Rebus.Exceptions
 {
     /// <summary>
     /// Special exception that signals that some kind of optimistic lock has been violated, and work must most likely be aborted &amp; retried
     /// </summary>
+#if NET45
     [Serializable]
-    public class ConcurrencyException : ApplicationException
+#endif
+    public class ConcurrencyException : Exception
     {
         /// <summary>
         /// Constructs the exception
@@ -25,6 +29,7 @@ namespace Rebus.Exceptions
         {
         }
 
+#if NET45
         /// <summary>
         /// Constructs the exception
         /// </summary>
@@ -32,5 +37,6 @@ namespace Rebus.Exceptions
             : base(info, context)
         {
         }
+#endif
     }
 }

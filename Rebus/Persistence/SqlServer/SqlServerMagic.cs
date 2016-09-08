@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET45
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -116,3 +117,4 @@ namespace Rebus.Persistence.SqlServer
         }
     }
 }
+#endif
