@@ -13,5 +13,10 @@ namespace Rebus.AzureServiceBus
         {
             return this;
         }
+
+        public IAsbOptions PrefecthCount(int prefectNumberOfMessages)
+        {
+            return this;
+        }
     }
 }

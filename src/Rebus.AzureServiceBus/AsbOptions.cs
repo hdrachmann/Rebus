@@ -6,6 +6,8 @@ namespace Rebus.AzureServiceBus
     {
         IAsbOptions AutomaticallyRenewPeekLockEvery(TimeSpan customTimeSpan);
         IAsbOptions DoNotAutomaticallyRenewPeekLock();
+
+        IAsbOptions PrefecthCount(int prefectNumberOfMessages);
     }
 
     public class AsbOptions : IAsbOptions
@@ -26,6 +28,12 @@ namespace Rebus.AzureServiceBus
         public IAsbOptions DoNotAutomaticallyRenewPeekLock()
         {
             queue.SetAutomaticPeekLockRenewalInterval(TimeSpan.FromSeconds(0));
+            return this;
+        }
+
+        public IAsbOptions PrefecthCount(int prefectNumberOfMessages)
+        {
+            queue.SetPrefecthCount(prefectNumberOfMessages);
             return this;
         }
     }

@@ -43,6 +43,7 @@ namespace Rebus.AzureServiceBus
         readonly string connectionString;
 
         TimeSpan peekLockRenewalInterval = TimeSpan.FromMinutes(4.5);
+        int prefectNumberOfMessages = 1;
 
         bool disposed;
 
@@ -110,7 +111,7 @@ namespace Rebus.AzureServiceBus
                     UserMetadata = string.Format("Queue created by Rebus {0}", DateTime.Now)
                 });
             }
-            catch(MessagingEntityAlreadyExistsException)
+            catch (MessagingEntityAlreadyExistsException)
             {
                 //the call failed because the queue already exists
             }
@@ -171,7 +172,9 @@ namespace Rebus.AzureServiceBus
 
         QueueClient CreateNewClient(string queueName)
         {
-            return QueueClient.CreateFromConnectionString(connectionString, queueName);
+            var client = QueueClient.CreateFromConnectionString(connectionString, queueName);
+            client.PrefetchCount = prefectNumberOfMessages;
+            return client;
         }
 
         public ReceivedTransportMessage ReceiveMessage(ITransactionContext context)
@@ -414,7 +417,7 @@ namespace Rebus.AzureServiceBus
                         {
                             log.Debug("Less than {0} messages to be sent to {1} - will perform one single send operation for each message",
                                 batchThreshold, destinationQueueName);
-                            
+
                             messagesForThisRecipient.ForEach(message =>
                             {
                                 var brokeredMessage = CreateBrokeredMessage(message);
@@ -542,7 +545,11 @@ namespace Rebus.AzureServiceBus
         {
             peekLockRenewalInterval = peekLockRenewalTimeSpan;
         }
-
+        public void SetPrefecthCount(int numberOfMessages)
+        {
+            if (prefectNumberOfMessages <= 0) throw new ArgumentOutOfRangeException("prefectNumberOfMessages");
+            prefectNumberOfMessages = numberOfMessages;
+        }
         public void Dispose()
         {
             Dispose(true);
@@ -572,5 +579,7 @@ namespace Rebus.AzureServiceBus
 
             disposed = true;
         }
+
+
     }
 }
